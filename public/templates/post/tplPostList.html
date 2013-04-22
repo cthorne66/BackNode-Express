@@ -1,0 +1,29 @@
+<a class="btn pull-right login-required" href="#post/new">New Post</a>
+<br />
+<ul class="list-view">
+	{{ _.each(posts,function(x){ }}
+		<div class="row">
+		    <div class="pull-right icons">
+		        <a href="#post/edit/{{= x.id }}" class="edit login-required" data-id="{{= x.id }}">
+		            <i class="icon-edit"></i>
+		        </a>
+		        <a href="#" data-toggle="modal" data-target="#modal" class="delete login-required" data-id="{{= x.id }}">
+		            <i class="icon-trash"></i>
+		        </a>
+		    </div>
+		    <h1>
+		        <a class="read" href="#post/read/{{= x.id }}">
+		            {{= x.title }}
+		        </a>
+		    </h1>
+		  <span class="post-meta">
+		        {{= x.create_date ? Date.parse(x.create_date).toString('d MMM, yyyy') : '' }} /
+		        {{= x.comments.length }} comments / by {{= x.author ? x.author.username : '' }}
+		    </span>
+		    <hr>
+		    <div class="content">
+		    	{{= (x.content + '').replace(/\n/g,'<br>') }}
+		    </div>
+		</div>
+	{{ }); }}
+</ul>

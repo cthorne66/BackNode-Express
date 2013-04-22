@@ -1,0 +1,27 @@
+<h1>Post Form</h1>
+<br />
+<form class="form-horizontal">
+  <fieldset>
+    <div class="row">
+      <hr>
+      <div class="control-group">
+        <label class="control-label" for="title">Title</label>
+        <div class="controls">
+          <input type="text" class="span9" id="title" value="{{=title}}">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label" for="content">Content</label>
+        <div class="controls">
+          <textarea class="span9" id="content" rows="20">{{=content}}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" name="save" class="btn btn-primary">Save changes</button>
+      <button type="reset" name="cancel" class="btn">Cancel</button>
+    </div>
+  </fieldset>
+</form>

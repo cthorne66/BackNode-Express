@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="pull-right icons">
+        <a href="#post/edit/{{= id }}" class="edit login-required">
+            <i class="icon-edit"></i>
+        </a>
+        <a href="javascript:void(0)" data-toggle="modal" data-target="#modal" class="delete login-required">
+            <i class="icon-trash"></i>
+        </a>
+    </div>
+    <h1>
+        <a class="read" href="#post/read/{{= id }}">
+            {{= title }}
+        </a>
+    </h1>
+  <span class="post-meta">
+        {{= create_date ? Date.parse(create_date).toString('d MMM, yyyy') : '' }} /
+        {{= comments.length }} comments /
+        by {{= author ? author.username : '' }}
+    </span>
+    <hr>
+    <div class="content">{{= (content + '').replace(/\n/g,'<br>') }}</div>
+</div>
