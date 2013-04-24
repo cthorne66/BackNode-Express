@@ -6,7 +6,7 @@ define([
 
   mv.models.Post = Backbone.Model.extend({
 
-    urlRoot: 'api/postwithcomments',
+    urlRoot: 'api/post',
 
     defaults: {
       title: '',

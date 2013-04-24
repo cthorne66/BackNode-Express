@@ -9,6 +9,7 @@
     "express": "3.0.x",
     "jade": "0.28.x",
     "stylus": "0.32.x",
+    "ejs":  "0.8.x",
     "grunt": "0.4.x",
     "grunt-contrib-jade": "0.5.x",
     "grunt-contrib-coffee": "0.6.x",

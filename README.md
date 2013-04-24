@@ -46,7 +46,16 @@ Although it should already provide a solid starting point, this project is still
         npm install -g grunt-cli
         npm start
 
-5. Point your browser to localhost:3000 and start hacking! Any changes to source files will cause grunt to recompile/reload.
+5. Install mongoDB
+
+				http://docs.mongodb.org/manual/installation/
+
+6. Run the DB script to populate the DB
+
+				cd /pathtomongo/bin
+				mongo localhost:27017 /pathtoapp/app/config/db-scripts.js
+
+7. Point your browser to localhost:3000 and start hacking! Any changes to source files will cause grunt to recompile/reload.
 
 ## Todo
  - Mocha BDD api tests

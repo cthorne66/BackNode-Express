@@ -29,7 +29,7 @@ var require = {
         text                 : '../lib/require/text',
         domReady             : '../lib/require/domReady',
         json                 : '../lib/utils/json2',
-        bootstrap            : '../lib/bootstrap/bootstrap.min',
+        bootstrap            : '../lib/bootstrap/bootstrap-2.3.1.min',
 
         jasmine              : '../lib/jasmine/jasmine',
         'jasmine.html'       : '../lib/jasmine/jasmine-html',
