@@ -24,7 +24,7 @@ var require = {
         backbone             : '../lib/backbone/backbone-1.0.0-min',
         modelbinding         : '../lib/backbone/backbone.modelbinding',
         backboneModelBinding : '../lib/backbone/backbone.modelbinder-1.0.0-min',
-        visualsearch         : '../lib/app/visualsearch',
+        visualsearch         : '../lib/visualsearch/visualsearch',
         marionette           : '../lib/backbone/backbone.marionette-1.0.2-min',
         text                 : '../lib/require/text',
         domReady             : '../lib/require/domReady',
@@ -69,7 +69,7 @@ var require = {
 if(typeof mv == 'undefined'){
 window.mv = {  //instanciate namespace for application
   views:{},
-  models:{},  
+  models:{},
   collections:{},
   helpers:{},
   i:{ //for instaciated objects
