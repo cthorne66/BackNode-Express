@@ -6,15 +6,15 @@ define([
   return Backbone.Router.extend({
 
     routes: {
-      ".*"                   : "postList",
-      "user/list"            : "userList",
-      "user/new"             : "userNew",
-      "user/edit/:id"        : "userEdit",
-      "user/delete/:id"      : "userDelete",
-      "post/list"            : "postList",
-      "post/new"             : "postNew",
-      "post/edit/:id"        : "postEdit",
-      "post/read/:id"        : "postRead"
+      '.*' : 'postList',
+      'user/list' : 'userList',
+      'user/new' : 'userNew',
+      'user/edit/:id' : 'userEdit',
+      'user/delete/:id' : 'userDelete',
+      'post/list' : 'postList',
+      'post/new' : 'postNew',
+      'post/edit/:id' : 'postEdit',
+      'post/read/:id' : 'postRead'
     },
 
     // Users

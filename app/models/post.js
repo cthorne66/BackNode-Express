@@ -7,8 +7,8 @@ PostSchema = new Schema({
 	id:	Number,
 	title:	String,
 	content:	String,
-	user_id	:	Number,
-	create_date:	String,
+	userId	:	Number,
+	createDate:	String,
 	comments:		Array
 });
 

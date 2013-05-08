@@ -11,9 +11,9 @@ define([
     defaults: {
       title: '',
       content: '',
-      create_date: '',
-      is_deleted: null,
-      user_id: '',
+      createDate: '',
+      isDeleted: null,
+      userId: '',
       comments: []
     }
 

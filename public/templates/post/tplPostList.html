@@ -17,8 +17,8 @@
 		        </a>
 		    </h1>
 		  <span class="post-meta">
-		        {{= x.create_date ? Date.parse(x.create_date).toString('d MMM, yyyy') : '' }} /
-		        {{= x.comments.length }} comments / by {{= x.author ? x.author.username : '' }}
+		        {{= x.createDate ? Date.parse(x.createDate).toString('d MMM, yyyy') : '' }} /
+		        {{= x.comments.length }} comments
 		    </span>
 		    <hr>
 		    <div class="content">

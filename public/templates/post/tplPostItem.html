@@ -13,10 +13,50 @@
         </a>
     </h1>
   <span class="post-meta">
-        {{= create_date ? Date.parse(create_date).toString('d MMM, yyyy') : '' }} /
+        {{= createDate ? Date.parse(createDate).toString('d MMM, yyyy') : '' }} /
         {{= comments.length }} comments /
         by {{= author ? author.username : '' }}
     </span>
     <hr>
     <div class="content">{{= (content + '').replace(/\n/g,'<br>') }}</div>
+</div>
+
+<div class="row">
+    <ul class="list-view">
+        <a class="btn pull-right new" href="#">New Comment</a>
+        <h1>Comments List</h1>
+        <br>
+        {{ _.each(comments, function(x){ }}
+            <div class="well row">
+              <div class="pull-right">
+                <a href="#" class="edit"><i class="icon-edit"></i></a>
+                <a href="#" data-toggle="modal" data-target="#modal" class="delete"><i class="icon-trash"></i></a>
+              </div>
+              <h4>Comment by: {{= x.userId }}</h4>
+              <hr>
+              {{= x.content }}
+            </div>
+        {{ }); }}
+    </ul>
+</div>
+
+<div class="row">
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="row">
+          <hr>
+
+          <div class="control-group">
+            <div class="controls">
+              <textarea class="span9" id="content" rows="10" placeholder="Leave a comment"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" name="save" class="btn btn-primary">Save changes</button>
+          <button type="reset" name="cancel" class="btn">Cancel</button>
+        </div>
+      </fieldset>
+    </form>
 </div>

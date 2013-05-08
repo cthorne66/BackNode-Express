@@ -2,36 +2,38 @@ define([
   'core',
   'app',
   'models/post',
+  'models/comment',
   'views/modal/confirm',
   'text!templates/post/tplPostItem.html'
-  ], function(core, App, Post, ModalConfirmView, template) {
+  ], function(core, App, Post, Comment, ModalConfirmView, template) {
 
   mv.views.PostItemView = Backbone.View.extend({
-    template : _.template(template),
+    template: _.template(template),
     events: {
       'click a.delete' : 'delete',
-      'click a.read'   : 'read',
-      'click a.edit'   : 'edit'
+      'click a.read' : 'read',
+      'click a.edit' : 'edit',
+      'submit form' : 'addComment'
     },
 
     initialize: function(options) {
-      _.bindAll(this, 'render','confirmDelete', 'close');
+      _.bindAll(this, 'render', 'confirmDelete', 'close');
     },
 
-    setup: function(id){
+    setup: function(id) {
       var self = this,
         dfd = $.Deferred(),
-        post = new Post({id:id});
+        post = new Post({id: id});
 
       $.when(post.fetch())
-      .done(function(){
+      .done(function() {
         self.model = post;
         //self.model.fetchRelated('comments');
         self.model.on('error', self.error);
         self.model.on('modal:confirm', self.confirmDelete);
         dfd.resolve();
       })
-      .fail(function(err){
+      .fail(function(err) {
         dfd.reject();
       });
       return dfd.promise();
@@ -45,12 +47,12 @@ define([
       return this;
     },
 
-    read: function(event){
+    read: function(event) {
       event.preventDefault();
       Backbone.history.navigate('post/read/' + this.model.id, true);
     },
 
-    edit: function(event){
+    edit: function(event) {
       event.preventDefault();
       Backbone.history.navigate('post/edit/' + this.model.id, true);
     },
@@ -59,11 +61,32 @@ define([
       event.preventDefault();
 
       var modalConfirmView = new ModalConfirmView({
-        model  : this.model,
-        header : 'Confirm Delete',
-        body   : 'Are you sure you want to delete this item?'
+        model: this.model,
+        header: 'Confirm Delete',
+        body: 'Are you sure you want to delete this item?'
       });
       $('.head').html(modalConfirmView.render().el);
+    },
+
+    addComment: function(event) {
+      event.preventDefault();
+      var self = this, comment;
+      content = this.$el.find('textarea').val();
+      comment = new Comment();
+      comment.set({
+        postId: this.model.get('id'),
+        content: content
+      });
+      console.log(comment.toJSON());
+      $.when(comment.save())
+        .done(function(newPost){
+          var post = new Post(newPost);
+          self.model = post;
+          self.render();
+        })
+        .fail(function(err){
+          console.log(err);
+        });
     },
 
     confirmDelete: function() {

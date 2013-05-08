@@ -1,12 +1,17 @@
-define([
-  'core'
-  ], function() {
+define(['core'], function() {
 
-  mv.models.Comment = Backbone.Model.extend({
-    
-    urlRoot: 'api/comment'
+    mv.models.Comment = Backbone.Model.extend({
 
-  });
+        urlRoot: 'api/post/comment',
 
-  return mv.models.Comment;
+        defaults: {
+            postId: 0,
+            content: '',
+            userId: '',
+            createDate: ''
+        }
+
+    });
+
+    return mv.models.Comment;
 });

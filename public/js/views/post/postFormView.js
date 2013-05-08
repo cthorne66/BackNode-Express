@@ -8,31 +8,31 @@ define([
   ], function(core, Post, CommentCollection, template, App, ModelBinder) {
 
   mv.views.PostFormView = Backbone.View.extend({
-    template : _.template(template),
+    template: _.template(template),
     modelBinder: null,
 
     initialize: function(options) {
-      _.bindAll(this, 'render','close');
+      _.bindAll(this, 'render', 'close');
       this.modelBinder = new ModelBinder();
     },
 
-    setup: function(id){
+    setup: function(id) {
       var self = this,
         dfd = $.Deferred();
-      
+
       self.model = new Post();
       self.model.on('error', self.error);
       self.model.on('sync', self.success);
 
-      if(typeof id === 'undefined'){
+      if (typeof id === 'undefined') {
         dfd.resolve();
-      }else{
-        self.model.set({id:id});
+      }else {
+        self.model.set({id: id});
         $.when(self.model.fetch())
-        .done(function(){
+        .done(function() {
           dfd.resolve();
         })
-        .fail(function(err){
+        .fail(function(err) {
           console.log(err);
           dfd.reject();
         });
@@ -41,7 +41,7 @@ define([
       return dfd.promise();
     },
 
-    render: function(){
+    render: function() {
       this.$el.html(this.template(this.model.toJSON()));
       this.modelBinder.bind(this.model, this.el, this.bindings);
       return this;
@@ -53,7 +53,7 @@ define([
     },
 
     events: {
-      'click button[name=save]'   : 'save',
+      'click button[name=save]' : 'save',
       'click button[name=cancel]' : 'cancel'
     },
 
@@ -61,14 +61,14 @@ define([
       event.preventDefault();
       var self = this;
       $.when(self.model.save())
-        .done(function(){
+        .done(function() {
           App.vent.trigger('alert', {
             msg: 'Post "' + self.model.get('title') + '" updated.',
             type: 'success'
           });
           Backbone.history.navigate('post/list', true);
         })
-        .fail(function(err){
+        .fail(function(err) {
           App.vent.trigger('alert', {
             msg: err.responseText ? err.responseText : err.statusText,
             type: 'error'
