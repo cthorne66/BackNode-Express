@@ -17,21 +17,25 @@ var PostController = function(app, db) {
 
   this.show = function(req, res) {
       var postId = req.params.id;
-      console.log('post id: '+ postId);
+      console.log('post id: ' + postId);
       Post.findOne({id: postId}, function(err,data) {
         res.send(data);
       });
   };
 
   this.comment = function(req, res) {
-    var comment = req.body;
-    var date = moment.utc();
-    comment.createDate = date.valueOf();
-    Post.findOne({id: comment.postId}, function(err,post) {
-      post.comments.push(comment);
-      post.save();
-      res.send(post);
-    });
+    try {
+      var comment = req.body;
+      var date = moment.utc();
+      comment.createDate = date.valueOf();
+      Post.findOne({id: comment.postId}, function(err,post) {
+        post.comments.push(comment);
+        post.save();
+        res.send(post);
+      });
+    }catch(err){
+      res.send(500, { error: 'something blew up' });
+    }
   };
 };
 

@@ -3,7 +3,7 @@ define([
   'collections/posts',
   'text!templates/post/tplPostList.html',
   'app',
-  'views/modal/confirm'
+  'views/modal/confirm',
   ], function(core, Posts, template, App, ModalConfirmView) {
 
   mv.views.PostListView = Backbone.View.extend({

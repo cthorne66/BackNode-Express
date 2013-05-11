@@ -1,7 +1,6 @@
 define([
   'core',
-  'models/post',
-  'datejs'
+  'models/post'
   ], function(core, PostModel){
 
   mv.collections.Posts = Backbone.Collection.extend({

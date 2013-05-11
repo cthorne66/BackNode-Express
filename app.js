@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs');
 
 var mongoose = require('mongoose');
-mongoose.connect('localhost', 'mydb');
+mongoose.connect('localhost', 'backnode-express');
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -36,11 +36,5 @@ fs.readdirSync(models_path).forEach(function(file) {
 
 // Bootstrap the routes
 routes = require('./app/config/routes')(app, db);
-
-// Bootstrap the controllers
-// var controller_path = __dirname + '/app/controllers';
-// fs.readdirSync(controller_path).forEach(function(file) {
-//   require(controller_path + '/' + file)(app,db);
-// });
 
 http.createServer(app).listen(app.get('port'));

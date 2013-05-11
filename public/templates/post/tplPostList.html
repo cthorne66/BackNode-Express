@@ -17,7 +17,7 @@
 		        </a>
 		    </h1>
 		  <span class="post-meta">
-		        {{= x.createDate ? Date.parse(x.createDate).toString('d MMM, yyyy') : '' }} /
+		        {{= x.createDate ? moment.utc(x.createDate).local().format('D/M/YYYY h:mma') : '' }} /
 		        {{= x.comments.length }} comments
 		    </span>
 		    <hr>

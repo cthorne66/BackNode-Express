@@ -1,7 +1,8 @@
 define([
   'core',
   'models/comment',
-  'collections/comments'
+  'collections/comments',
+  'moment'
   ], function(core, CommentModel, CommentCollection) {
 
   mv.models.Post = Backbone.Model.extend({

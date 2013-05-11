@@ -1,4 +1,4 @@
-define(['core'], function() {
+define(['core','moment'], function() {
 
     mv.models.Comment = Backbone.Model.extend({
 

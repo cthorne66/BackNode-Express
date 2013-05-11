@@ -35,7 +35,8 @@ var require = {
         'jasmine.html'       : '../lib/jasmine/jasmine-html',
         'jasmine.jquery'     : '../lib/jasmine/jasmine-jquery',
         // bootstrapWysihtml5   : '../lib/bootstrap/bootstrap-wysihtml5',
-        datejs: '../lib/utils/date'
+        datejs: '../lib/utils/date',
+        moment: '../lib/utils/moment.min-2.0.0'
     },
     shim: {
         underscore: {

@@ -13,7 +13,7 @@
         </a>
     </h1>
   <span class="post-meta">
-        {{= createDate ? Date.parse(createDate).toString('d MMM, yyyy') : '' }} /
+        {{= createDate ? moment.utc(createDate).local().format('D/M/YYYY h:mma') : '' }} /
         {{= comments.length }} comments /
         by {{= author ? author.username : '' }}
     </span>
