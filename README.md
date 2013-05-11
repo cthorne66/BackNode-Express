@@ -1,4 +1,4 @@
-# Node / Backbone Web App Boilerplate
+# Node / Express / Backbone Web Application Boilerplate
 
 ## Description
 Node/Backbone forms a powerful combination for building single page web applications that scale. Because of these two project's popularity, there are several great boilerplate projects out there, but all for either Node or Backbone seperately. This project aims to integrate these two worlds (Backend and Frontend) making it easy to start building next generation web applications.
