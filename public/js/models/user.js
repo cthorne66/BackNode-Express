@@ -14,9 +14,8 @@ define([
       fname: '',
       lname: '',
       email: '',
-      username: '',
       password: '',
-      create_date: '',
+      createDate: '',
       role: ''
     }
   });

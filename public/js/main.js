@@ -2,84 +2,80 @@
 define.amd.jQuery = true;
 
 define([
-  'core',
-  'domReady',
-  'router',
-  'app',
-  'models/login',
-  'models/webUser',
-  'collections/comments',
-  'views/navbarView',
-  'views/searchView',
-  'views/loginView',
-  'datejs'
-], function(core, domReady,
-            Router, App,
-            LoginModel, WebUser,
-            CommentCollection,
-            NavbarView, SearchView, LoginView) {
+	'core',
+	'domReady',
+	'router',
+	'app',
+	'models/login',
+	'models/webUser',
+	'collections/comments',
+	'views/navbarView',
+	'views/searchView',
+	'views/loginView'
+	], function(core, domReady, Router, App, LoginModel, WebUser, CommentCollection, NavbarView, SearchView, LoginView) {
 
-  $.ajaxSetup({
-    dataFilter: function(data, dataType) {
-      if ('Login Required!' === data) {
-        App.vent.trigger('alert', {
-          msg: 'Login Required',
-          type: 'error'
-        });
-        // Return something not json parsable to
-        // stop event triggering and all current ajax requests.
-        // Looking for better solution.
-        return ';';
-      }
-      return data;
-    }
-  });
+	//listen for any ajax errors in the site
+	$(document).ajaxError(function(event, jqxhr, settings, exception) {
+		//console.log(event, jqxhr, settings, exception);
+		if (jqxhr.status == 401) {
+			App.vent.trigger('alert', {
+				msg: 'Login Required',
+				type: 'error'
+			});
+			Backbone.history.navigate('/', true);
 
-  // Initialize search
-  App.addInitializer(function (options) {
-    var searchView = new SearchView({});
-    searchView.render();
-  });
+		} else {
+			console.log(event, jqxhr, settings, exception);
+		}
+	});
 
-  // Cross app collections
-  App.comments = new CommentCollection;
+	// Initialize search
+	App.addInitializer(function(options) {
+		var searchView = new SearchView({});
+		searchView.render();
+	});
 
-  // Web User
-  App.vent.on('webUser:init', function(data) {
-    $('body').removeClass('guest').addClass('logged-in');
+	// Cross app collections
+	App.comments = new CommentCollection();
 
-    var model = data instanceof WebUser ? data : new WebUser(data);
-    var view = new NavbarView({model: model});
-    view.render();
+	// Web User
+	App.vent.on('webUser:init', function(data) {
+		$('body').removeClass('guest').addClass('logged-in');
 
-    model.on('destroy',function() {
-      view.close();
-      App.vent.trigger('webUser:guest');
-      Backbone.history.navigate('post/list', true);
-    });
-    this.vent.on('logout', model.destroy, model);
-  }, App);
+		var model = data instanceof WebUser ? data : new WebUser(data);
+		var view = new NavbarView({
+			model: model
+		});
+		view.render();
 
-  App.vent.on('webUser:guest', function() {
-    $('body').removeClass('logged-in').addClass('guest');
-    var view = new LoginView();
-    view.render();
-    $('.login').html(view.el);
-  }, App);
+		model.on('destroy', function() {
+			view.close();
+			App.vent.trigger('webUser:guest');
+			Backbone.history.navigate('post/list', true);
+		});
+		this.vent.on('logout', model.destroy, model);
+	}, App);
 
-  // Alerts
+	App.vent.on('webUser:guest', function() {
+		$('body').removeClass('logged-in').addClass('guest');
+		var view = new LoginView();
+		view.render();
+		$('.login').html(view.el);
+	}, App);
 
-  App.vent.on('alert', function (options) {
-    require(['views/alertView'], function(AlertView) {
-      var alertView = new AlertView(options);
-      App.headRegion.show(alertView);
-    });
-  });
+	// Alerts
+	App.vent.on('alert', function(options) {
+		require(['views/alertView'], function(AlertView) {
+			var alertView = new AlertView(options);
+			App.headRegion.show(alertView);
+		});
+	});
 
-  // Load code defined on php side in main layout and start the Application.
-  require(['onLoad'], function() {
-    App.start();
-    App.router = new Router();
-    Backbone.history.start();
-  });
+	// Load code defined on php side in main layout and start the Application.
+	require(['onLoad'], function() {
+		window.app = App;
+		App.start();
+		App.router = new Router();
+		Backbone.history.start();
+	});
 });

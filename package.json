@@ -1,12 +1,17 @@
 {
-  "name": "backnode-express",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "express": "3.0.x",
-    "ejs":  "0.8.x",
-    "mongoose": "~3.5.9",
-    "underscore": "1.4.x",
-    "moment": "2.0.0"
-  }
+	"name": "backnode-express",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "3.0.x",
+		"ejs": "0.8.x",
+		"mongoose": "~3.5.9",
+		"underscore": "1.4.x",
+		"moment": "2.0.0",
+		"passport": "0.1.17",
+		"passport-local": "0.1.6",
+		"async": "latest",
+		"connect-mongo": "latest"
+
+	}
 }
