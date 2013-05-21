@@ -7,30 +7,30 @@ define([
   ], function(core, User, template, App, ModelBinder) {
 
   mv.views.UserFormView = Backbone.View.extend({
-    template : _.template(template),
+    template: _.template(template),
     modelBinder: null,
 
     initialize: function(options) {
       this.modelBinder = new ModelBinder();
     },
 
-    setup: function(id){
+    setup: function(id) {
       var self = this,
         dfd = $.Deferred();
-      
+
       self.model = new User();
       self.model.on('error', self.error);
       self.model.on('sync', self.success);
 
-      if(typeof id === 'undefined'){
+      if (typeof id === 'undefined') {
         dfd.resolve();
-      }else{
-        self.model.set({id:id});
+      }else {
+        self.model.set({id: id});
         $.when(self.model.fetch())
-        .done(function(){
+        .done(function() {
           dfd.resolve();
         })
-        .fail(function(err){
+        .fail(function(err) {
           console.log(err);
           dfd.reject();
         });
@@ -41,38 +41,38 @@ define([
 
     render: function() {
       var isNew = this.model.isNew();
-      var data = _.extend(this.model.toJSON(),{isNew: isNew});
+      var data = _.extend(this.model.toJSON(), {isNew: isNew});
       this.$el.html(this.template(data));
       this.modelBinder.bind(this.model, this.el, this.bindings);
       return this;
     },
 
     bindings: {
-      fname: '#fname',
-      lname: '#lname',
+      firstName: '#fname',
+      lastName: '#lname',
       email: '#email',
-      username: '#username',
+      userName: '#username',
       password: 'input:password',
       role: '#role'
     },
 
     events: {
-      'click button[name=save]'   : 'save',
-      'click button[name=cancel]' : 'cancel'
+      'submit form': 'saveUser',
+      'click button[name=cancel]': 'cancel'
     },
 
-    save: function(event) {
+    saveUser: function(event) {
       event.preventDefault();
       var self = this;
       $.when(this.model.save())
-        .done(function(){
+        .done(function() {
           App.vent.trigger('alert', {
-            msg: 'User "' + self.model.get('username') + '" updated.',
+            msg: 'User "' + self.model.get('userName') + '" updated.',
             type: 'success'
           });
           Backbone.history.navigate('user/list', true);
         })
-        .fail(function(err){
+        .fail(function(err) {
           App.vent.trigger('alert', {
             msg: err.responseText ? err.responseText : err.statusText,
             type: 'error'

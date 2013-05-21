@@ -6,37 +6,37 @@
     <div class="control-group">
       <label class="control-label" for="fname">First name</label>
       <div class="controls">
-        <input type="text" class="input-large" id="fname" value="{{=fname}}">
+        <input type="text" class="input-large" id="fname" value="{{=firstName}}" required="required" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="lname">Last name</label>
       <div class="controls">
-        <input type="text" class="input-large" id="lname" value="{{=lname}}">
+        <input type="text" class="input-large" id="lname" value="{{=lastName}}" required="required" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="email">Email</label>
       <div class="controls">
-        <input type="text" class="input-large" id="email" value="{{=email}}">
+        <input type="text" class="input-large" id="email" value="{{=email}}" required="required" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="username">Username</label>
       <div class="controls">
-        <input type="text" class="input-large" id="username" value="{{=username}}">
+        <input type="text" class="input-large" id="username" value="{{=userName}}" required="required" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label">Password</label>
       <div class="controls">
-        <input type="password" class="input-large" id="{{= isNew ? 'password' : 'newPassword' }}">
+        <input type="password" class="input-large" id="{{= isNew ? 'password' : 'newPassword' }}" required="required" />
       </div>
     </div>
     <div class="control-group">
       <label class="control-label" for="role">Role</label>
       <div class="controls">
-        <select id="role" class="span3">
+        <select id="role" class="span3" required="required">
           <option value="user" {{ if(role == "user") { }} selected="selected" {{ } }}>User</option>
           <option value="sales" {{ if(role == "sales") { }} selected="selected" {{ } }}>Sales</option>
           <option value="admin" {{ if(role == "admin") { }} selected="selected" {{ } }}>Admin</option>
