@@ -7,9 +7,12 @@ _ = require('underscore'),
 authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
-	name: String,
+	firstName: String,
+	lastName: String,
 	email: String,
-	username: String,
+	userName: String,
+	createDate: Number,
+	role: String,
 	provider: String,
 	hashed_password: String,
 	salt: String,
