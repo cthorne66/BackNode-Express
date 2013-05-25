@@ -25,7 +25,7 @@ define([
       if (typeof id === 'undefined') {
         dfd.resolve();
       }else {
-        self.model.set({id: id});
+        self.model.setId(id);
         $.when(self.model.fetch())
         .done(function() {
           dfd.resolve();
@@ -65,12 +65,19 @@ define([
       event.preventDefault();
       var self = this;
       $.when(this.model.save())
-        .done(function() {
-          App.vent.trigger('alert', {
-            msg: 'User "' + self.model.get('userName') + '" updated.',
-            type: 'success'
-          });
-          Backbone.history.navigate('user/list', true);
+        .done(function(data) {
+          if(!data.error){
+            App.vent.trigger('alert', {
+              msg: 'User "' + self.model.get('userName') + '" updated.',
+              type: 'success'
+            });
+            Backbone.history.navigate('user/list', true);
+          }else{
+            App.vent.trigger('alert', {
+              msg: data.error,
+              type: 'error'
+            });
+          }
         })
         .fail(function(err) {
           App.vent.trigger('alert', {

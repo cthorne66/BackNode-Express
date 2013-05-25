@@ -6,7 +6,7 @@ define([
   mv.collections.Users = Backbone.Collection.extend({
 
     model: UserModel,
-    url: 'api/user'
+    url: 'api/users'
 
   });
 

@@ -88,10 +88,10 @@ define([
 				.done(function() {
 					App.mainRegion.show(view.render());
 				})
-        .fail(function(err){
-          console.log("hey");
+        .fail(function(err) {
+          console.log('hey');
         });
 			});
-		},
+		}
 	});
 });

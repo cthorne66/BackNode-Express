@@ -14,7 +14,9 @@ module.exports = function(app, passport, auth) {
   // app.get('/login', users.login);
   // app.get('/signup', users.signup);
   // app.get('/logout', users.logout);
-  app.post(api_root + '/user', users.create);
+  app.get(api_root + '/users', users.index);
+  app.get(api_root + '/user/:id', users.show);
+  app.post(api_root + '/user', users.save);
   // app.post('/users/session', passport.authenticate('local', {failureRedirect: '/login', failureFlash: 'Invalid email or password.'}), users.session);
   // app.get('/users/:userId', users.show);
   // app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_about_me'], failureRedirect: '/login' }), users.signin);

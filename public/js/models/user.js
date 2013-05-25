@@ -10,6 +10,17 @@ define([
 
     urlRoot: 'api/user',
 
+    // urlRoot: function(){
+    //   if (this.isNew()){
+    //     return "api/user";
+    //   } else {
+    //     return "api/user/" + this.id;
+    //   }
+    // },
+
+
+    idAttribute: "_id",
+
     defaults: {
       firstName: '',
       lastName: '',

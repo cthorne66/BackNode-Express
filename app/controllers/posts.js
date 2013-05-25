@@ -19,7 +19,7 @@ var PostController = function(app) {
 		var postId = req.params.id;
 		console.log('post id: ' + postId);
 		Post.findOne({
-			id: postId
+			_id: postId
 		}, function(err, data) {
 			res.send(data);
 		});

@@ -7,6 +7,7 @@
 		"ejs": "0.8.x",
 		"mongoose": "~3.5.9",
 		"underscore": "1.4.x",
+		"underscore.deferred": "0.4.0",
 		"moment": "2.0.0",
 		"passport": "0.1.17",
 		"passport-local": "0.1.6",

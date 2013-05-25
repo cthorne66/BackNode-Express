@@ -22,9 +22,8 @@ define([
 		setup: function(id) {
 			var self = this,
 				dfd = $.Deferred(),
-				post = new Post({
-					id: id
-				});
+				post = new Post();
+				post.setId(id);
 
 			$.when(post.fetch())
 			.done(function() {
