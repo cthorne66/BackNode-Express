@@ -6,11 +6,12 @@ define([
     url: 'api/webUser',
 
     defaults: {
-      fname: '',
-      lname: '',
+      firstName: '',
+      lastName: '',
+      userName: '',
       email: '',
       password: '',
-      createDate: '',
+      createDate: 0,
       role: ''
     }
   });

@@ -1,0 +1,34 @@
+{{ if(isLoggedIn) { }}
+	<div id="nav-menu" class="pull-right login-required">
+		<ul class="nav">
+			<li><a href="#" id="homeLink">Home</a></li>
+			<li class="divider-vertical"></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#post/list">Posts</a></li>
+				</ul>
+			</li>
+			<li class="divider-vertical"></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{= userName }} <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li><a href="#user/list">Users</a></li>
+					<li><a id="settings" href="javascript:void(0)">Settings</a></li>
+					<li class="divider"></li>
+					<li><a id="logout" href="javascript:void(0)">Sign Out</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+{{ }else{ }}
+	<div class="login guest-only">
+		<form action="" class="form-inline pull-right">
+		  <div class="btn-group pull-right" style="padding-left:5px">
+		    <button type="submit" name="login" class="btn">Go</button>
+		  </div>
+		  <input class="input-small" name="userName" type="text" placeholder="Username">
+		  <input class="input-small" name="password" type="password"  placeholder="Password">
+		</form>
+	</div>
+{{ } }}

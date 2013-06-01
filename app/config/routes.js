@@ -3,18 +3,14 @@ var api_root = '/api';
 
 module.exports = function(app, passport, auth) {
 
-	app.get('/', function(req, res) {
-		res.render('index', { title: app.get('title') });
-	});
-
-
 	// user routes
   var UserController = require('../controllers/users');
   var users = new UserController(app);
-  // app.get('/login', users.login);
+  app.get(api_root + '/webUser', users.webUser);
+  app.post(api_root + '/webUser', passport.authenticate('local', {failureRedirect: '/'}), users.signin);
   // app.get('/signup', users.signup);
-  // app.get('/logout', users.logout);
-  app.get(api_root + '/users', users.index);
+  app.get(api_root + '/webUser/logout', users.logout);
+  app.get(api_root + '/users', auth.requiresLogin, users.index);
   app.get(api_root + '/user/:id', users.show);
   app.post(api_root + '/user', users.save);
   // app.post('/users/session', passport.authenticate('local', {failureRedirect: '/login', failureFlash: 'Invalid email or password.'}), users.session);

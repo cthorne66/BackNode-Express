@@ -173,13 +173,13 @@ div.tab-content>div {
   max-width: inherit;
 }
 
-body.logged-in .guest-only {
+/*body.logged-in .guest-only {
   display: none;
 }
 
 body.guest .login-required {
   display: none;
-}
+}*/
 
 div.orderView div.row {
   position: relative;

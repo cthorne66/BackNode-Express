@@ -1,12 +1,34 @@
-
 var mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	moment = require('moment'),
-  _ = require('underscore');
+	_ = require('underscore');
 _.mixin(require('underscore.deferred'));
 
 var UserController = function(app) {
 	var self = this;
+
+	var getWebUserData = function(reqUser){
+		var aUser = reqUser.toJSON();
+		delete aUser.hashed_password;
+		delete aUser.salt;
+		return aUser;
+	};
+
+	this.signin = function(req, res) {
+		//var reqUser = new User(req.body);
+		var reqUser = req.user;
+		req.login(reqUser, function(err) {
+			if (err) {
+				return next(err);
+			}
+			return res.send(getWebUserData(reqUser));
+		});
+	};
+
+	this.logout = function(req, res) {
+		req.logout();
+		res.redirect('/');
+	};
 
 	this.save = function(req, res) {
 		var reqUser = new User(req.body);
@@ -52,27 +74,54 @@ var UserController = function(app) {
 		});
 	};
 
+
+	this.index = function(req, res) {
+		User.find({}, function(arr, data) {
+			res.send(data);
+		});
+	};
+
+	var errorResponse = function(res, responseCode, msg) {
+		return res.send(responseCode, {
+			error: msg
+		});
+	};
+
 	/**
 	 * Find user by id
 	 */
-  this.show = function(req, res) {
-    var id = req.params.id;
-    User.findOne({
-      _id: id
-    }, function(err, data) {
-      if(!err){
-        res.send(data);
-      }else{
-        errorResponse(res,500,'unable to retreive user');
-      }
-    });
-  };
+	this.show = function(req, res) {
+		var id = req.params.id;
+		User.findOne({
+			_id: id
+		}, function(err, data) {
+			if (!err) {
+				res.send(data);
+			} else {
+				errorResponse(res, 500, 'unable to retreive user');
+			}
+		});
+	};
 
-  var errorResponse = function(res, responseCode, msg){
-    return res.send(responseCode, {
-      error: msg
-    });
-  }
+
+	this.webUser = function(req, res) {
+		try{
+			if (!req.isAuthenticated()) {
+				res.send({});
+			}else{
+				var reqUser = req.user;
+				res.send(getWebUserData(reqUser));
+			}
+		}catch(err){
+			errorResponse(res, 500, 'unable to retreive user');
+		}
+	};
+
+	this.logout = function(req, res) {
+	  req.logout();
+	  res.send();
+	};
+
 
 	// this.find = function(req, res, next, id) {
 	// 	User.findOne({
@@ -86,26 +135,22 @@ var UserController = function(app) {
 	// 	});
 	// };
 
-	var findUserByUserId = function(userName) {
-		var dfd = _.Deferred();
-		try {
-			User.find({
-				userName: userName
-			}, function(err, users) {
-				dfd.resolve(users || []);
-			});
-		} catch (err) {
-			console.log("couldn't file users by id", err);
-			dfd.reject();
-		}
-		return dfd.promise();
-	};
+	// var findUserByUserId = function(userName) {
+	// 	var dfd = _.Deferred();
+	// 	try {
+	// 		User.find({
+	// 			userName: userName
+	// 		}, function(err, users) {
+	// 			dfd.resolve(users || []);
+	// 		});
+	// 	} catch (err) {
+	// 		console.log("couldn't file users by id", err);
+	// 		dfd.reject();
+	// 	}
+	// 	return dfd.promise();
+	// };
 
-	this.index = function(req, res) {
-		User.find({}, function(arr, data) {
-			res.send(data);
-		});
-	};
+
 
 	/**
 	 * Create user

@@ -6,13 +6,11 @@ define([
 	'domReady',
 	'router',
 	'app',
-	'models/login',
 	'models/webUser',
 	'collections/comments',
-	'views/navbarView',
 	'views/searchView',
-	'views/loginView'
-	], function(core, domReady, Router, App, LoginModel, WebUser, CommentCollection, NavbarView, SearchView, LoginView) {
+	'views/userNavbarView'
+	], function(core, domReady, Router, App, WebUser, CommentCollection, SearchView, UserNavbarView) {
 
 	//listen for any ajax errors in the site
 	$(document).ajaxError(function(event, jqxhr, settings, exception) {
@@ -38,31 +36,6 @@ define([
 	// Cross app collections
 	App.comments = new CommentCollection();
 
-	// Web User
-	App.vent.on('webUser:init', function(data) {
-		$('body').removeClass('guest').addClass('logged-in');
-
-		var model = data instanceof WebUser ? data : new WebUser(data);
-		var view = new NavbarView({
-			model: model
-		});
-		view.render();
-
-		model.on('destroy', function() {
-			view.close();
-			App.vent.trigger('webUser:guest');
-			Backbone.history.navigate('post/list', true);
-		});
-		this.vent.on('logout', model.destroy, model);
-	}, App);
-
-	App.vent.on('webUser:guest', function() {
-		$('body').removeClass('logged-in').addClass('guest');
-		var view = new LoginView();
-		view.render();
-		$('.login').html(view.el);
-	}, App);
-
 	// Alerts
 	App.vent.on('alert', function(options) {
 		require(['views/alertView'], function(AlertView) {
@@ -71,11 +44,9 @@ define([
 		});
 	});
 
-	// Load code defined on php side in main layout and start the Application.
-	require(['onLoad'], function() {
-		window.app = App;
-		App.start();
-		App.router = new Router();
-		Backbone.history.start();
-	});
+	window.app = App;
+	App.start();
+	App.router = new Router();
+	Backbone.history.start();
+	var userNav = new UserNavbarView({el: '#user-navbar'});
 });

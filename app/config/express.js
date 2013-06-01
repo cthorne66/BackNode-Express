@@ -8,8 +8,6 @@ module.exports = function(app, config, passport) {
   app.set('showStackError', true);
   app.use(express.compress());
   app.use(express.favicon());
-  app.set('views', config.root + '/app/views');
-  app.set('view engine', 'ejs');
 
   app.configure(function() {
 
