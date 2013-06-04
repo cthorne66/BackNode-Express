@@ -28,7 +28,7 @@ The most prominent technologies are:
 
 2. Get the project source code from GitHub
 
-        git clone git@github.com:skaapgif/webapp-boilerplate.git webapp
+        git clone git@github.com/cthorne66/BackNode-Express.git webapp
         cd webapp
 
 3. Install node package dependencies
