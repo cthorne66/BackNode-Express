@@ -46,6 +46,8 @@ The most prominent technologies are:
 
 6. Point your browser to localhost:3000
 
+7. login with user/password: admin / admin
+
 Optional step.  If you want, install nodemon (https://github.com/remy/nodemon) to listen for changes to files & redeploy automatically.  Then start the app: 
 
         nodemon server.js

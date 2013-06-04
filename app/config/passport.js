@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
 	User = mongoose.model('User');
 
 module.exports = function(passport, config) {
-	// require('./initializer')
 
 	// serialize sessions
 	passport.serializeUser(function(user, done) {
