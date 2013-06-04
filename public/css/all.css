@@ -138,7 +138,7 @@ div.main ul.list-view li div.icons {
 }
 
 div.main div.row {
-  margin-left: 0px;
+  margin: 0 0 50px 0;
 }
 
 form.form-horizontal div.row div.control-group {

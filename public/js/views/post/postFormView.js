@@ -27,7 +27,7 @@ define([
       if (typeof id === 'undefined') {
         dfd.resolve();
       }else {
-        self.model.set({id: id});
+        self.model.setId(id);
         $.when(self.model.fetch())
         .done(function() {
           dfd.resolve();

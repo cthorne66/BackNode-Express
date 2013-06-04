@@ -4,10 +4,11 @@ mongoose = require('mongoose');
 Schema = mongoose.Schema;
 
 CommentSchema = new Schema({
-	id:	Number,
+	postId:	Number,
+	commentId:	Number,
 	content:	String,
-	user_id	:	Number,
-	create_date:	String
+	userId	:	String,
+	createDate:	String
 });
 
 mongoose.model('Comment', CommentSchema);

@@ -9,6 +9,12 @@ var moment = require('moment');
 
 var PostController = function(app) {
 
+	var errorResponse = function(res, responseCode, msg) {
+		return res.send(responseCode, {
+			error: msg
+		});
+	};
+
 	this.index = function(req, res) {
 		Post.find({}, function(arr, data) {
 			res.send(data);
@@ -25,22 +31,41 @@ var PostController = function(app) {
 		});
 	};
 
-	this.comment = function(req, res) {
+	this.addPost = function(req, res) {
 		try {
-			var comment = req.body;
+			var data = req.body;
 			var date = moment.utc();
+			data.createDate = date.valueOf();
+
+			var post = new Post(data);
+			post.save(function(error, savedPost) {
+				if (error) {
+					throw "could not save";
+				} else {
+					res.send(savedPost);
+				}
+			});
+		} catch (err) {
+			errorResponse(res, 500, 'something blew up');
+		}
+	};
+
+	this.addComment = function(req, res) {
+		try {
+			var comment = req.body,
+				date = moment.utc();
+
+			comment.userId = req.user.userName;
 			comment.createDate = date.valueOf();
 			Post.findOne({
-				id: comment.postId
-			}, function(err, post) {
+				_id: comment.postId
+			}, function(error, post) {
 				post.comments.push(comment);
 				post.save();
 				res.send(post);
 			});
 		} catch (err) {
-			res.send(500, {
-				error: 'something blew up'
-			});
+			errorResponse(res, 500, 'something blew up');
 		}
 	};
 };

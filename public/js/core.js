@@ -16,6 +16,14 @@ define([
   Backbone.Model.prototype.idAttribute = '_id';
 
 
+  Backbone.Model.prototype.getId = function() {
+    if (this.idAttribute) {
+      return this[this.idAttribute];
+    }else{
+      return this.id;
+    }
+  };
+
   /**
    * To effectively set the applicable attribute that represents the ID
    * based on the potentially set idAttribute

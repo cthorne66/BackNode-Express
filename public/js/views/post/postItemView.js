@@ -28,7 +28,6 @@ define([
 			$.when(post.fetch())
 			.done(function() {
 				self.model = post;
-				//self.model.fetchRelated('comments');
 				self.model.on('error', self.error);
 				self.model.on('modal:confirm', self.confirmDelete);
 				dfd.resolve();
@@ -75,7 +74,8 @@ define([
 			content = this.$el.find('textarea').val();
 			comment = new Comment();
 			comment.set({
-				postId: this.model.get('id'),
+				postId: this.model.id,
+				commentId: comment.id,
 				content: content
 			});
 			console.log(comment.toJSON());

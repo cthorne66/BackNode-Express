@@ -5,7 +5,8 @@ define(['core','moment'], function() {
         urlRoot: 'api/post/comment',
 
         defaults: {
-            postId: 0,
+            postId: '',
+            commentId: '',
             content: '',
             userId: '',
             createDate: ''
